@@ -116,3 +116,33 @@ CREATE TABLE Cate_Clientes(
   Id_Categoria SERIAL PRIMARY KEY,
   Des_Categoria VARCHAR(50) UNIQUE NOT NULL
 );
+
+CREATE TABLE Telefonos(
+  Id_Telefono SERIAL PRIMARY KEY,
+  Numero VARCHAR(9) UNIQUE NOT NULL,
+  Pais VARCHAR(50) NOT NULL,
+  Localidad VARCHAR(50) NOT NULL,
+  Tipo_Telefono VARCHAR(20) NOT NULL,
+  Id_Usuario INT NOT NULL,
+  FOREIGN KEY (Id_Usuario) REFERENCES Usuarios (Id_Usuario)
+);
+
+CREATE TABLE Administradores(
+  Id_Usuario SERIAL NOT NULL,
+  CONSTRAINT PK_Usuario PRIMARY KEY (Id_Usuario),
+  FOREIGN KEY (Id_Usuario) REFERENCES Usuarios (Id_Usuario)
+);
+
+CREATE TABLE Auditorias(
+  Id_Auditoria SERIAL PRIMARY KEY,
+  Usuario VARCHAR(50) NOT NULL,
+  Terminal VARCHAR(50) NOT NULL,
+  Fec_Hora TIMESTAMP NOT NULL,
+);
+
+CREATE TABLE Funcionalidades(
+  Id_Funcionalidad SERIAL PRIMARY KEY,
+  Des_Funcionalidad VARCHAR(50) NOT NULL,
+  Id_Auditoria INT NOT NULL,
+  FOREIGN KEY (Id_Auditoria) REFERENCES Auditorias (Id_Auditoria)
+);
